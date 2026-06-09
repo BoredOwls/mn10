@@ -6,7 +6,7 @@ COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile
 
 COPY . .
-RUN bun build ./index.ts --compile --outfile server 
+RUN bun build ./main.ts --compile --outfile server 
 
 
 
