@@ -4,16 +4,23 @@
   "type": "module",
   "private": true,
   "scripts": {
-	"dev": "bun run --watch main.ts"
+    "dev": "bun run --watch main.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "bun run db/migrate.ts",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "drizzle-kit": "^0.31.10"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
     "@types/express": "^5.0.6",
-    "express": "^5.2.1"
+    "drizzle-orm": "^0.45.2",
+    "express": "^5.2.1",
+    "postgres": "^3.4.9"
   }
 }
