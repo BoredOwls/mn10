@@ -1,0 +1,44 @@
+#manifest for mn10's local dev setup 
+
+version: '3'
+
+services:  
+  mn10_server:
+    image: mn10_server:latest
+    build:
+      context: ./apps/server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - mn10_dev
+ 
+  mn10_webapp:
+    image: mn10_webapp:latest
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - mn10_dev
+
+  mn10_db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER} 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} 
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postres/data:/var/lib/postgresql/data
+    networks:
+      - mn10_dev
+
+
+networks:
+  mn10_dev:
+    driver: bridge   
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
