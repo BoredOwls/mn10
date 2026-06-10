@@ -86,11 +86,11 @@ export class Logger {
     if (this.stdout) process.stdout.write(line + "\n");
     if (this.fileStream) this.fileStream.write(line + "\n");
   }
- 
+
   private log(level: LogLevel, msg: string): void {
-    if (LEVELS[level] < LEVELS[this.level]) return;
-    const line = `level=${level} ts=${this.timestamp()} caller=${this.caller()} msg=${JSON.stringify(msg)}`;
-    this.write(line);
+	  if (LEVELS[level] < LEVELS[this.level]) return;
+	  const line = `level=${level} ts=${this.timestamp()} caller=${this.caller()} msg=${msg}`;
+	  this.write(line);
   }
  
   debug(msg: string): void { this.log("debug", msg); }

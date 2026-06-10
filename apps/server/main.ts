@@ -1,3 +1,4 @@
+
 import express, { type Request, type Response } from "express";
 import { Logger } from "./common/logger";
 import { errorHandler } from "./common/error-handler";
@@ -26,7 +27,7 @@ async function start() {
   });
 }
 
-start().catch((err) => {
-  log.error(`failed to start: ${err.message}`);
+start().catch((err: Error) => {
+  log.error(`failed to start [ErrorType: ${err.name}] caused by ${err.cause} \nmessage: ${err.message || "none"}\n\n${err.stack}`);
   process.exit(1);
 });
