@@ -1,2 +1,1 @@
-// export all tables from here
-// example: export { users } from "./users";
+export { users, sessions, account } from "./auth-schema";
