@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/cookie-parser": "^1.4.10",
     "drizzle-kit": "^0.31.10"
   },
   "peerDependencies": {
@@ -19,8 +20,10 @@
   },
   "dependencies": {
     "@types/express": "^5.0.6",
+    "cookie-parser": "^1.4.7",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
-    "postgres": "^3.4.9"
+    "postgres": "^3.4.9",
+    "zod": "^4.4.3"
   }
 }

@@ -1,5 +1,6 @@
 
 import express, { type Request, type Response } from "express";
+import cookieParser from "cookie-parser";
 import { Logger } from "./common/logger";
 import { errorHandler } from "./common/error-handler";
 import { authRouter } from "./routes/auth-router";
@@ -9,6 +10,7 @@ const app = express();
 const log = new Logger({ stdout: true });
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/health", (_: Request, res: Response) => {
   res.status(200).send("API SERVER HEALTHY");
