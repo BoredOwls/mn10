@@ -10,7 +10,8 @@
     "rebuild": "docker compose -f docker-compose.yaml build --no-cache && docker compose -f docker-compose.yaml up -d",
     "up": "docker compose -f docker-compose.yaml up -d",
     "down": "docker compose -f docker-compose.yaml down",
-    "server": "cd apps/server && npm run dev"
+    "server": "cd apps/server && npm run dev",
+    "install": "turbo run install"
   },
   "devDependencies": {
     "prettier": "^3.7.4",
