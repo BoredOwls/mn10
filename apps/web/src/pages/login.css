@@ -1,0 +1,128 @@
+.login {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* faint blueprint dot grid */
+.login-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--bg-3) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 75%);
+}
+
+/* amber owl-eye glow rising from the horizon */
+.login-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -340px;
+  width: 720px;
+  height: 480px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(126, 156, 230, 0.13),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.login-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 420px;
+  padding: 0 24px;
+}
+
+.login-card > * {
+  opacity: 0;
+  animation: login-rise 520ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.login-card > :nth-child(2) { animation-delay: 80ms; }
+.login-card > :nth-child(3) { animation-delay: 160ms; }
+.login-card > :nth-child(4) { animation-delay: 260ms; }
+.login-card > :nth-child(5) { animation-delay: 360ms; }
+
+@keyframes login-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.login-wordmark {
+  margin: 22px 0 0;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.login-tag {
+  margin: 14px 0 0;
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.login-tag strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 36px;
+  padding: 11px 26px;
+  border-radius: 10px;
+  background: var(--text-1);
+  color: var(--bg-0);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: transform 140ms, box-shadow 140ms, background 140ms;
+}
+
+.login-button:hover:not(:disabled) {
+  background: #f4f6fa;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(126, 156, 230, 0.2);
+}
+
+.login-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.login-fineprint {
+  margin-top: 18px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+
+.login-footer {
+  position: absolute;
+  bottom: 28px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text-3);
+  opacity: 0;
+  animation: login-rise 600ms 600ms ease forwards;
+}
