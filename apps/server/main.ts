@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import { Logger } from "./common/logger";
 import { errorHandler } from "./common/error-handler";
 import { authRouter } from "./routes/auth-router";
+import { projectRouter } from "./routes/project-router";
 import { connectDb } from "./db";
 
 const app = express();
@@ -17,6 +18,7 @@ app.get("/health", (_: Request, res: Response) => {
 });
 
 app.use("/auth", authRouter);
+app.use("/projects", projectRouter);
 
 app.use(errorHandler);
 
