@@ -3,7 +3,9 @@ import { authController } from "../controllers/auth-controller";
 
 const router = Router();
 
-router.get("/login", authController.login);
+router.post("/login/oauth", authController.oauthLogin);
+router.post("/login/pat",   authController.patLogin);
+
 router.get("/callback", authController.callback);
 router.get("/session", authController.getSession);
 router.post("/logout", authController.logout);

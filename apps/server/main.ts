@@ -22,10 +22,6 @@ app.use("/auth", authRouter);
 app.use("/projects", projectRouter);
 app.use("/repo", repoRouter)
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    console.error("RAW ERROR:", err);
-    next(err);
-});
 app.use(errorHandler);
 
 async function start() {
