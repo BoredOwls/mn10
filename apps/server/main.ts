@@ -1,17 +1,18 @@
 
-import express, { type Request, type Response } from "express";
+import express, { type NextFunction, type Request, type Response } from "express";
 import cookieParser from "cookie-parser";
-import { Logger } from "./common/logger";
 import { errorHandler } from "./common/error-handler";
 import { authRouter } from "./routes/auth-router";
 import { projectRouter } from "./routes/project-router";
 import { connectDb } from "./db";
+import { log } from './global.ts'
+import { repoRouter } from "./routes/repo-router.ts";
 
 const app = express();
-const log = new Logger({ stdout: true });
 
 app.use(express.json());
 app.use(cookieParser());
+//app.use(log.httpLogger.bind(log));
 
 app.get("/health", (_: Request, res: Response) => {
   res.status(200).send("API SERVER HEALTHY");
@@ -19,7 +20,12 @@ app.get("/health", (_: Request, res: Response) => {
 
 app.use("/auth", authRouter);
 app.use("/projects", projectRouter);
+app.use("/repo", repoRouter)
 
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.error("RAW ERROR:", err);
+    next(err);
+});
 app.use(errorHandler);
 
 async function start() {
@@ -35,3 +41,4 @@ start().catch((err: Error) => {
   log.error(`failed to start [ErrorType: ${err.name}] caused by ${err.cause} \nmessage: ${err.message || "none"}\n\n${err.stack}`);
   process.exit(1);
 });
+

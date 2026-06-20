@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  code_dump:
+    desc: dump all typescript files into a codedump.txt for feeding into LLM or codebase search
+    cmds:
+      - for file in $(find . -type f -name "*.ts"); do echo "----------------------------"; echo $file; cat $file; echo "----------------------------"; done >> codedump.txt
