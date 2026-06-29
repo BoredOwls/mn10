@@ -1,5 +1,5 @@
 
-import express, { type NextFunction, type Request, type Response } from "express";
+import express, { type Request, type Response } from "express";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./common/error-handler";
 import { authRouter } from "./routes/auth-router";
@@ -37,4 +37,3 @@ start().catch((err: Error) => {
   log.error(`failed to start [ErrorType: ${err.name}] caused by ${err.cause} \nmessage: ${err.message || "none"}\n\n${err.stack}`);
   process.exit(1);
 });
-

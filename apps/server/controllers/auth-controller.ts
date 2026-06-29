@@ -11,7 +11,6 @@ import { AuthValidation } from "../validators/auth-validation";
 
 
 const oauthLogin = async (req: Request, res: Response) => {
-	console.log(req.body)
     const { clientId, clientSecret } = AuthValidation.parseOAuthLogin(req.body);
     const { state, redirectUrl } = AuthService.oauthLogin(clientId);
 

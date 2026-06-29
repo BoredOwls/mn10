@@ -25,7 +25,6 @@ const oauthLogin = (clientId: string): OAuthLoginResult => {
 const patLogin = async (pat: string): Promise<string> => {
     const ghUser = await _getGithubUser(pat);
     const email  = ghUser.email ?? await _getGithubPrimaryEmail(pat);
-	console.log(email)
 
 
 	const upsertUserParams: UpsertUserParams = {
