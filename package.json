@@ -13,7 +13,8 @@
     "server": "cd apps/server && npm run dev",
     "install": "turbo run install",
 	
-	"server:test": "cd apps/server && npm run test"
+	"server:test": "cd apps/server && npm run test",
+	"server:build": "cd apps/server && npm run build"
   },
   "devDependencies": {
     "prettier": "^3.7.4",

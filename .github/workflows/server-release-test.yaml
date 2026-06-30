@@ -1,0 +1,38 @@
+#for testng the server release tag workflow, only difference is all tests run but tag release doesn't occur, for manual workflow dispatch to test workflow works
+
+name: Test CI for mn10 binary (server) (linux-amd64 & mac-arm64)
+run-name: mn10 server test CI ${{ github.event_name }} by ${{ github.actor }}
+on:
+  workflow_dispatch: # manual trigger only, for testing
+
+permissions:
+  contents: write
+
+jobs:
+  test-linux-amd64:
+    name: Test CI for mn10 (server)
+    runs-on: ubuntu-latest
+    env:
+      GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
+      GH_OWNER: ${{ secrets.GH_OWNER }}
+      GH_REPO: ${{ secrets.GH_REPO }}
+    steps:
+
+      - name: checkout repo
+        uses: actions/checkout@v5
+        with: 
+          fetch-depth: 0 #fetch commit logs, etc..
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm run server:test
