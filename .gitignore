@@ -39,3 +39,4 @@ yarn-error.log*
 
 postgres/data/
 **/codedump.txt
+CLAUDE.md

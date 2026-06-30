@@ -4,6 +4,9 @@ export type User = typeof users.$inferSelect;
 export type Account = typeof account.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 
+export type OrgMembershipStatus = "active" | "pending" | "not_member";
+export interface OrgMembershipResult { state: OrgMembershipStatus; }
+
 export interface OauthLoginBody{
     clientId:     string;
     clientSecret: string;

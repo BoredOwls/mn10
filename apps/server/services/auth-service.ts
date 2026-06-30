@@ -1,9 +1,9 @@
 
-import type { CallbackParams, OAuthLoginResult, SessionResult, UpsertAccountParams, UpsertUserParams } from "../types/auth-types";
+import type { CallbackParams, OAuthLoginResult, OrgMembershipResult, SessionResult, UpsertAccountParams, UpsertUserParams } from "../types/auth-types";
 import { env } from "../config/env";
 import { randomBytes } from "crypto";
-import { BadRequestError, InternalError, NotFoundError, UnauthorizedError } from "../common/api-error";
-import type { GithubEmail, GithubTokenResponse, GithubUser } from "../types/github-types";
+import { BadRequestError, InternalError, UnauthorizedError } from "../common/api-error";
+import type { GithubEmail, GithubOrgMembership, GithubTokenResponse, GithubUser } from "../types/github-types";
 import { AuthRepository } from "../repositories/auth-repository";
 
 
@@ -13,7 +13,7 @@ const oauthLogin = (clientId: string): OAuthLoginResult => {
     const params = new URLSearchParams({
         client_id:    clientId,
         redirect_uri: `${env.github.baseUrl}/auth/callback`,
-        scope:        "read:user user:email repo",
+        scope:        "read:user user:email repo read:org",
         state,
     });
     return {
@@ -150,10 +150,27 @@ const _getGithubPrimaryEmail = async (accessToken: string): Promise<string> => {
     return primary;
 };
 
+const checkOrgMembership = async (orgLogin: string, token: string): Promise<OrgMembershipResult> => {
+    const res = await fetch(`https://api.github.com/user/memberships/orgs/${orgLogin}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github+json",
+            "User-Agent": "mn10-app",
+        },
+    });
+
+    if (res.status === 404) return { state: "not_member" };
+    if (!res.ok) throw new InternalError("github_membership_check_failed");
+
+    const data = await res.json() as GithubOrgMembership;
+    return { state: data.state };
+};
+
 export const AuthService = {
 	oauthLogin,
 	patLogin,
     callback,
     getSession,
     logout,
+    checkOrgMembership,
 };

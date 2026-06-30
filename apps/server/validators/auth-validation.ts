@@ -40,4 +40,14 @@ const parsePatLogin = (body: unknown) => {
 };
 
 
-export const AuthValidation = { parseCallback, parsePatLogin, parseOAuthLogin };
+const membershipCheckSchema = z.object({
+    org: z.string().min(1, "missing_org"),
+});
+
+const parseMembershipCheck = (query: unknown) => {
+    const result = membershipCheckSchema.safeParse(query);
+    if (!result.success) throw new BadRequestError("invalid_membership_check_params");
+    return result.data;
+};
+
+export const AuthValidation = { parseCallback, parsePatLogin, parseOAuthLogin, parseMembershipCheck };
