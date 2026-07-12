@@ -7,6 +7,7 @@ import { projectRouter } from "./routes/project-router";
 import { connectDb } from "./db";
 import { log } from './global.ts'
 import { repoRouter } from "./routes/repo-router.ts";
+import { organizationRouter } from "./routes/organization-router.ts";
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.get("/health", (_: Request, res: Response) => {
 
 app.use("/auth", authRouter);
 app.use("/projects", projectRouter);
-app.use("/repo", repoRouter)
+app.use("/repo", repoRouter);
+app.use("/org", organizationRouter);
 
 app.use(errorHandler);
 

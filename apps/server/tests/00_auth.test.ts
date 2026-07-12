@@ -13,8 +13,6 @@ afterAll(async ()=>{
 })
 
 
-
-
 test("login with PAT and fetch session", async () => {
 	const baseUrl = "http://localhost:8080";
 	const pat = process.env.GH_PAT_TOKEN!;
@@ -52,35 +50,4 @@ test("login with PAT and fetch session", async () => {
 	expect(body.message).toBe("ok");
 	expect(body.data).toBeDefined();
 })
-
-
-test("check org membership via PAT", async () => {
-	const baseUrl = "http://localhost:8080";
-	const pat = process.env.GH_PAT_TOKEN!;
-	const org = process.env.GH_ORG!;
-	if (!pat) throw Error("GH_PAT_TOKEN not defined");
-	if (!org) throw Error("GH_ORG not defined");
-
-	const loginRes = await fetch(`${baseUrl}/auth/login/pat`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ pat }),
-	});
-	expect(loginRes.ok).toBe(true);
-
-	const setCookie = loginRes.headers.get("set-cookie");
-	const sessionCookie = setCookie!.split(",").find((c) =>
-		c.trim().startsWith("session="))?.split(";")[0];
-	expect(sessionCookie).toBeDefined();
-
-	const membershipRes = await fetch(`${baseUrl}/auth/org/membership?org=${org}`, {
-		headers: { Cookie: sessionCookie! },
-	});
-	expect(membershipRes.ok).toBe(true);
-
-	const body: any = await membershipRes.json();
-	expect(body.success).toBe(true);
-	expect(body.data.state).toBe("active");
-});
-
 

@@ -92,17 +92,10 @@ const logout = async (req: Request, res: Response) => {
     res.json(ApiResponse.ok("logged out"));
 };
 
-const checkOrgMembership = async (req: Request, res: Response) => {
-    const { org } = AuthValidation.parseMembershipCheck(req.query);
-    const result = await AuthService.checkOrgMembership(org, req.githubToken!);
-    res.json(ApiResponse.ok("ok", result));
-};
-
 export const authController = {
     oauthLogin: asyncHandler(oauthLogin),
 	patLogin:   asyncHandler(patLogin),
     callback: asyncHandler(callback),
     getSession: asyncHandler(getSession),
     logout: asyncHandler(logout),
-    checkOrgMembership: asyncHandler(checkOrgMembership),
 };

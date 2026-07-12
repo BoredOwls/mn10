@@ -1,11 +1,13 @@
 
 import { Router } from "express";
 import { requireAuth } from "../middlewares/auth-middleware";
+import { requireRepoAccess } from "../middlewares/repo-access-middleware";
 import { repoController } from "../controllers/repo-controller";
 
 const router = Router();
-
 router.use(requireAuth);
+//APIs with /:owner checks if that org has been created 
+router.param("owner", requireRepoAccess);
 
 router.get("/", repoController.getRepos);
 router.get("/:owner", repoController.getReposByOwner);
