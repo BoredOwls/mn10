@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import type { users } from "../db/schema/auth-schema";
 import { UnauthorizedError } from "../common/api-error";
 import { AuthRepository } from "../repositories/auth-repository";
+import { log } from "../global";
 
 declare global {
     namespace Express {

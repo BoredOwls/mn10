@@ -4,6 +4,18 @@ export type User = typeof users.$inferSelect;
 export type Account = typeof account.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
 
+export type OrgMembershipStatus = "active" | "pending" | "not_member";
+export interface OrgMembershipResult { state: OrgMembershipStatus; }
+
+export interface OauthLoginBody{
+    clientId:     string;
+    clientSecret: string;
+}
+
+export interface PatLoginBody {
+    pat: string;
+}
+
 export interface CallbackParams {
     code: string;
     state: string;
@@ -23,10 +35,11 @@ export interface UpsertAccountParams {
     accessToken: string;
 }
 
-export interface LoginResult {
-    state: string;
+export interface OAuthLoginResult {
+    state:       string;
     redirectUrl: string;
 }
+
 
 export interface SessionResult {
     user: typeof users.$inferSelect;

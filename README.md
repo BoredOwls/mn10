@@ -1,8 +1,6 @@
 
 
-
 ## Setup & usage guide:
-
 
 
 1. Install deps
@@ -19,4 +17,14 @@ npm run dev
 3. Run containers (optional)
 ```
 npm run up
+```
+
+---
+
+### Tests:
+
+1. For server:
+> spins up docker pg-db & local server for mock sandbox 
+```bash
+npm run server:test
 ```

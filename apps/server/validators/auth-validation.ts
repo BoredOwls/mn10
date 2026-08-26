@@ -7,6 +7,17 @@ const callBackSchema = z.object({
     cookieState: z.string().min(1, "missing_cookie_state"),
 });
 
+
+const oauthLoginSchema = z.object({
+    clientId:     z.string().min(1, "missing_client_id"),
+    clientSecret: z.string().min(1, "missing_client_secret"),
+});
+ 
+const patLoginSchema = z.object({
+    pat: z.string().min(1, "missing_pat"),
+});
+
+
 const parseCallback = (params: unknown) => {
     const result = callBackSchema.safeParse(params);
     if (!result.success) {
@@ -15,4 +26,28 @@ const parseCallback = (params: unknown) => {
     return result.data;
 };
 
-export const AuthValidation = { parseCallback };
+
+const parseOAuthLogin = (body: unknown) => {
+    const result = oauthLoginSchema.safeParse(body);
+    if (!result.success) throw new BadRequestError("invalid_oauth_params");
+    return result.data;
+};
+ 
+const parsePatLogin = (body: unknown) => {
+    const result = patLoginSchema.safeParse(body);
+    if (!result.success) throw new BadRequestError("invalid_pat_params");
+    return result.data;
+};
+
+
+const membershipCheckSchema = z.object({
+    org: z.string().min(1, "missing_org"),
+});
+
+const parseMembershipCheck = (query: unknown) => {
+    const result = membershipCheckSchema.safeParse(query);
+    if (!result.success) throw new BadRequestError("invalid_membership_check_params");
+    return result.data;
+};
+
+export const AuthValidation = { parseCallback, parsePatLogin, parseOAuthLogin, parseMembershipCheck };

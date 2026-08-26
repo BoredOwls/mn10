@@ -18,3 +18,25 @@ export interface GithubTokenResponse {
     error?: string;
     error_description?: string;
 }
+
+
+interface GithubOrgMembership_OrgInfo {
+	login: string;
+	id: number
+}
+export interface GithubOrgMembership {
+    state: "active" | "pending";
+    role: "admin" | "member";
+	organization: GithubOrgMembership_OrgInfo
+}
+
+export interface GithubOrgBrief {
+	id: number;
+	name: string;
+	state: "active" | "pending";
+    role: "admin" | "member";
+}
+
+export interface GithubOrgRole {
+	role: "admin" | "member" | null;
+}

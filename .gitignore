@@ -37,3 +37,6 @@ yarn-error.log*
 .DS_Store
 *.pem
 
+postgres/data/
+**/codedump.txt
+CLAUDE.md

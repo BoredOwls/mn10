@@ -1,29 +1,31 @@
 {
-  "name": "server",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "bun run --watch main.ts",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "bun run db/migrate.ts",
-    "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/cookie-parser": "^1.4.10",
-    "drizzle-kit": "^0.31.10"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@types/express": "^5.0.6",
-    "cookie-parser": "^1.4.7",
-    "drizzle-orm": "^0.45.2",
-    "express": "^5.2.1",
-    "postgres": "^3.4.9",
-    "zod": "^4.4.3"
-  }
+	"name": "server",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "DEBUG=1 bun run main.ts",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "bun run db/migrate.ts",
+		"db:push": "drizzle-kit push",
+		"db:studio": "drizzle-kit studio",
+		"test": "bun test ./tests/*.test.ts",
+		"build": "bun run build.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@types/cookie-parser": "^1.4.10",
+		"drizzle-kit": "^0.31.10"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@types/express": "^5.0.6",
+		"cookie-parser": "^1.4.7",
+		"drizzle-orm": "^0.45.2",
+		"express": "^5.2.1",
+		"postgres": "^3.4.9",
+		"zod": "^4.4.3"
+	}
 }

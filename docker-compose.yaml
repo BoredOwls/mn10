@@ -3,26 +3,6 @@
 version: '3'
 
 services:  
-  mn10_server:
-    image: mn10_server:latest
-    build:
-      context: ./apps/server
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - mn10_dev
- 
-  mn10_webapp:
-    image: mn10_webapp:latest
-    build:
-      context: ./apps/web
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    networks:
-      - mn10_dev
-
   mn10_db:
     image: postgres:16
     environment:

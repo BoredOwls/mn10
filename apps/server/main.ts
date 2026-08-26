@@ -1,17 +1,19 @@
 
 import express, { type Request, type Response } from "express";
 import cookieParser from "cookie-parser";
-import { Logger } from "./common/logger";
 import { errorHandler } from "./common/error-handler";
 import { authRouter } from "./routes/auth-router";
 import { projectRouter } from "./routes/project-router";
 import { connectDb } from "./db";
+import { log } from './global.ts'
+import { repoRouter } from "./routes/repo-router.ts";
+import { organizationRouter } from "./routes/organization-router.ts";
 
 const app = express();
-const log = new Logger({ stdout: true });
 
 app.use(express.json());
 app.use(cookieParser());
+//app.use(log.httpLogger.bind(log));
 
 app.get("/health", (_: Request, res: Response) => {
   res.status(200).send("API SERVER HEALTHY");
@@ -19,6 +21,8 @@ app.get("/health", (_: Request, res: Response) => {
 
 app.use("/auth", authRouter);
 app.use("/projects", projectRouter);
+app.use("/repo", repoRouter);
+app.use("/org", organizationRouter);
 
 app.use(errorHandler);
 
